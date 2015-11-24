@@ -65,27 +65,14 @@ public class MainActivity extends ListActivity {
             {
                 RingerHelper.performToggle(audioManager);
                 updateUi();
-                //i ++;
-
-                //if (i % 2==0)
-
-                //{
-                  //  contentView.setBackgroundColor(0x00FF00);
-                ///}
-                //else
-               // if (i % 2!=0)
-                //{
-                  ///  contentView.setBackgroundColor(0xFF0000);
-                //}
-
-
 
             }
         });
 
 
-        final Button button1=(Button) findViewById(R.id.button1_5);
-        Button button2=(Button) findViewById(R.id.button1_6);
+        final Button button1=(Button) findViewById(R.id.button2);
+
+
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,17 +83,18 @@ public class MainActivity extends ListActivity {
                 if (i % 2==0)
 
                 {
+                    contentView.setBackgroundColor(0x00FF00);
                     contentView2.setBackgroundColor(0x00FF00);
                     button1.setText("Dark Theme");
                 }
                 else
                  if (i % 2!=0)
                 {
-                    contentView2.setBackgroundColor(0xFFCC0000);
+                    contentView.setBackgroundColor(0xFF645C5C);
+                    contentView2.setBackgroundColor(0xFF645C5C);
                     button1.setText("Light Theme");
                 }
-               // contentView2.setBackgroundColor(0x00FF00);
-                //button1.setText("ok");
+
 
             }
 
@@ -115,15 +103,6 @@ public class MainActivity extends ListActivity {
 
 
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v3) {
-                contentView2.setBackgroundColor(0xFFCC0000);
-
-            }
-
-
-        });
 
 
         // Gets all the data from the database and stores it
@@ -179,7 +158,7 @@ public class MainActivity extends ListActivity {
             // Then we have the names of the data in String format and
             // their specific resource ids
 
-            ListAdapter adapter = new SimpleAdapter( MainActivity.this,contactList, R.layout.contact_entry, new String[] { "contactId","lastName", "firstName"}, new int[] {R.id.contactId, R.id.lastName, R.id.firstName});
+            ListAdapter adapter = new SimpleAdapter( MainActivity.this,contactList, R.layout.contact_entry, new String[] { "contactId","Director", "MovieTitle"}, new int[] {R.id.contactId, R.id.Director, R.id.MovieTitle});
 
             // setListAdapter provides the Cursor for the ListView
             // The Cursor provides access to the database data
@@ -203,8 +182,8 @@ private void updateUi(){
 
 
     int phoneImage = RingerHelper.isPhoneSilent(audioManager)
-            ?R.drawable.ringer_on_smaller
-            :R.drawable.ringer_off_smaller;
+            ?R.drawable.ringer_on_smaller_2
+            :R.drawable.ringer_off_smaller_4;
 
     imageView.setImageResource(phoneImage);
 }

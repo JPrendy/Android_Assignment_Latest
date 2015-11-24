@@ -12,12 +12,19 @@ import java.util.HashMap;
  * Created by James on 23/11/2015.
  */
 public class Edit_Contract extends Activity {
-
+/*
     EditText firstName;
     EditText lastName;
     EditText phoneNumber;
     EditText emailAddress;
-    EditText homeAddress;
+    EditText homeAddress;*/
+
+    EditText MovieTitle;
+    EditText Director;
+    EditText Starring;
+    EditText Genre;
+    EditText Comments;
+
 
     DBTools dbTools = new DBTools(this);
 
@@ -25,11 +32,18 @@ public class Edit_Contract extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_contract);
+        /*
         firstName = (EditText) findViewById(R.id.firstName);
         lastName = (EditText) findViewById(R.id.lastName);
         phoneNumber = (EditText) findViewById(R.id.phoneNumber);
         emailAddress = (EditText) findViewById(R.id.emailAddress);
-        homeAddress = (EditText) findViewById(R.id.homeAddress);
+        homeAddress = (EditText) findViewById(R.id.homeAddress);*/
+
+        MovieTitle = (EditText) findViewById(R.id.MovieTitle);
+        Director = (EditText) findViewById(R.id.Director);
+        Starring = (EditText) findViewById(R.id.Starring);
+        Genre = (EditText) findViewById(R.id.Genre);
+        Comments = (EditText) findViewById(R.id.Comments);
 
         Intent theIntent = getIntent();
 
@@ -39,11 +53,18 @@ public class Edit_Contract extends Activity {
 
         if(contactList.size() != 0){
 
-            firstName.setText(contactList.get("firstName"));
+           /* firstName.setText(contactList.get("firstName"));
             lastName.setText(contactList.get("lastName"));
             phoneNumber.setText(contactList.get("phoneNumber"));
             emailAddress.setText(contactList.get("emailAddress"));
-            homeAddress.setText(contactList.get("homeAddress"));
+            homeAddress.setText(contactList.get("homeAddress")); */
+
+
+            MovieTitle.setText(contactList.get("MovieTitle"));
+            Director.setText(contactList.get("Director"));
+            Starring.setText(contactList.get("Starring"));
+            Genre.setText(contactList.get("Genre"));
+            Comments.setText(contactList.get("Comments"));
 
         }
     }
@@ -51,24 +72,41 @@ public class Edit_Contract extends Activity {
     public void editContact(View view){
 
         HashMap<String, String> queryValuesMap = new HashMap<String, String>();
+        /*
         firstName = (EditText) findViewById(R.id.firstName);
         lastName = (EditText) findViewById(R.id.lastName);
         phoneNumber = (EditText) findViewById(R.id.phoneNumber);
         emailAddress = (EditText) findViewById(R.id.emailAddress);
         homeAddress = (EditText) findViewById(R.id.homeAddress);
+        */
+
+        MovieTitle = (EditText) findViewById(R.id.MovieTitle);
+        Director = (EditText) findViewById(R.id.Director);
+        Starring = (EditText) findViewById(R.id.Starring);
+        Genre = (EditText) findViewById(R.id.Genre);
+        Comments = (EditText) findViewById(R.id.Comments);
 
         Intent theIntent = getIntent();
 
         String contactId = theIntent.getStringExtra("contactId");
 
         queryValuesMap.put("contactId", contactId);
+        /*
         queryValuesMap.put("firstName", firstName.getText().toString());
         queryValuesMap.put("lastName", lastName.getText().toString());
         queryValuesMap.put("phoneNumber", phoneNumber.getText().toString());
         queryValuesMap.put("emailAddress", emailAddress.getText().toString());
         queryValuesMap.put("homeAddress", homeAddress.getText().toString());
+        */
 
+        queryValuesMap.put("MovieTitle", MovieTitle.getText().toString());
+        queryValuesMap.put("Director", Director.getText().toString());
+        queryValuesMap.put("Starring", Starring.getText().toString());
+        queryValuesMap.put("Genre", Genre.getText().toString());
+        queryValuesMap.put("Comments", Comments.getText().toString());
         dbTools.updateContact(queryValuesMap);
+
+
         this.callMainActivity(view);
 
     }

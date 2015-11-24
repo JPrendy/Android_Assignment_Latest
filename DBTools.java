@@ -16,15 +16,20 @@ public class DBTools extends SQLiteOpenHelper {
 
     public DBTools(Context applicationContext){
 
-        super(applicationContext, "contactbook.db", null, 1);
+        super(applicationContext, "contactbook.db", null, 2);
 
     }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
 
-        String query = "CREATE TABLE contacts ( contactId INTEGER PRIMARY KEY, firstName TEXT, " +
-                "lastName TEXT, phoneNumber TEXT, emailAddress TEXT, homeAddress TEXT)";
+        /*String query = "CREATE TABLE contacts ( contactId INTEGER PRIMARY KEY, firstName TEXT, " +
+                "lastName TEXT, phoneNumber TEXT, emailAddress TEXT, homeAddress TEXT)";*/
+
+
+
+        String query = "CREATE TABLE contacts ( contactId INTEGER PRIMARY KEY, MovieTitle TEXT, " +
+                "Director TEXT, Starring TEXT, Genre TEXT, Comments TEXT)";
 
         database.execSQL(query);
 
@@ -46,11 +51,18 @@ public class DBTools extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
+        /*
         values.put("firstName", queryValues.get("firstName"));
         values.put("lastName", queryValues.get("lastName"));
         values.put("phoneNumber", queryValues.get("phoneNumber"));
         values.put("emailAddress", queryValues.get("emailAddress"));
         values.put("homeAddress", queryValues.get("homeAddress"));
+*/
+        values.put("MovieTitle", queryValues.get("MovieTitle"));
+        values.put("Director", queryValues.get("Director"));
+        values.put("Starring", queryValues.get("Starring"));
+        values.put("Genre", queryValues.get("Genre"));
+        values.put("Comments", queryValues.get("Comments"));
 
         database.insert("contacts", null, values);
 
@@ -64,11 +76,17 @@ public class DBTools extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put("firstName", queryValues.get("firstName"));
+        /*values.put("firstName", queryValues.get("firstName"));
         values.put("lastName", queryValues.get("lastName"));
         values.put("phoneNumber", queryValues.get("phoneNumber"));
         values.put("emailAddress", queryValues.get("emailAddress"));
-        values.put("homeAddress", queryValues.get("homeAddress"));
+        values.put("homeAddress", queryValues.get("homeAddress"));*/
+
+        values.put("MovieTitle", queryValues.get("MovieTitle"));
+        values.put("Director", queryValues.get("Director"));
+        values.put("Starring", queryValues.get("Starring"));
+        values.put("Genre", queryValues.get("Genre"));
+        values.put("Comments", queryValues.get("Comments"));
 
         return database.update("contacts", values,
                 "contactId" + " = ?", new String[] {queryValues.get("contactId") });
@@ -89,7 +107,7 @@ public class DBTools extends SQLiteOpenHelper {
 
         ArrayList<HashMap<String, String>> contactArrayList = new ArrayList<HashMap<String, String>>();
 
-        String selectQuery = "SELECT * FROM contacts ORDER BY lastName";
+        String selectQuery = "SELECT * FROM contacts ORDER BY Director";
 
         SQLiteDatabase database = this.getWritableDatabase();
 
@@ -101,12 +119,21 @@ public class DBTools extends SQLiteOpenHelper {
 
                 HashMap<String, String> contactMap = new HashMap<String, String>();
 
-                contactMap.put("contactId", cursor.getString(0));
+                /*contactMap.put("contactId", cursor.getString(0));
                 contactMap.put("firstName", cursor.getString(1));
                 contactMap.put("lastName", cursor.getString(2));
                 contactMap.put("phoneNumber", cursor.getString(3));
                 contactMap.put("emailAddress", cursor.getString(4));
-                contactMap.put("homeAddress", cursor.getString(5));
+                contactMap.put("homeAddress", cursor.getString(5));*/
+
+
+                contactMap.put("contactId", cursor.getString(0));
+                contactMap.put("MovieTitle", cursor.getString(1));
+                contactMap.put("Director", cursor.getString(2));
+                contactMap.put("Starring", cursor.getString(3));
+                contactMap.put("Genre", cursor.getString(4));
+                contactMap.put("Comments", cursor.getString(5));
+
 
                 contactArrayList.add(contactMap);
 
@@ -132,12 +159,20 @@ public class DBTools extends SQLiteOpenHelper {
 
             do{
 
+                /*
                 contactMap.put("contactId", cursor.getString(0));
                 contactMap.put("firstName", cursor.getString(1));
                 contactMap.put("lastName", cursor.getString(2));
                 contactMap.put("phoneNumber", cursor.getString(3));
                 contactMap.put("emailAddress", cursor.getString(4));
-                contactMap.put("homeAddress", cursor.getString(5));
+                contactMap.put("homeAddress", cursor.getString(5));*/
+
+                contactMap.put("contactId", cursor.getString(0));
+                contactMap.put("MovieTitle", cursor.getString(1));
+                contactMap.put("Director", cursor.getString(2));
+                contactMap.put("Starring", cursor.getString(3));
+                contactMap.put("Genre", cursor.getString(4));
+                contactMap.put("Comments", cursor.getString(5));
 
 
             } while(cursor.moveToNext());
