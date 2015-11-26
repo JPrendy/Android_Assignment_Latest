@@ -1,18 +1,16 @@
+//Android Assignment
+//James Prendergast
+//C13446122
+//27_11_2015
+
+//this is the name of the Package of the Assignment
 package ie.dit.james.android_assignment_latest;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,78 +19,90 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
+//this is the first java class that is called when the app is running extends ListActivity
 public class MainActivity extends ListActivity {
 
-    // The Intent is used to issue that an operation should
-    // be performed
 
-    Intent intent;
-    TextView contactId;
-   int i = 0;
+    TextView contactId; ///this creates the TextView Variable contactId
+    int i = 0;  //this creates an integer variable and stores zero as it value
 
     AudioManager audioManager;
-    // The object that allows me to manipulate the database
 
+    // The object that allows me to modify my database with theDBTools class
     DBTools dbTools = new DBTools(this);
 
     // Called when the Activity is first called
-
     protected void onCreate(Bundle savedInstanceState) {
-        // Get saved data if there is any
 
+        //this gets any saved data, if the app was used before
         super.onCreate(savedInstanceState);
 
-
-        // Designate that edit_contact.xml is the interface used
-        // is activity_main.xml
-
+        //this sets the view of the first screen of the to activity_main.xml
         setContentView(R.layout.activity_main);
 
+        //this retrieves the audio services
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
 
+        //this initialises the following xml id objects so they can be manipulated in MainActivity
+        final TableRow contentView0 = (TableRow) findViewById(R.id.tableRow1);
         final TableRow contentView = (TableRow) findViewById(R.id.tableRow1_5);
         final TableRow contentView2 = (TableRow) findViewById(R.id.tableRow2);
+        final TableRow contentView3 = (TableRow) findViewById(R.id.tableRow3);
 
-        contentView.setOnClickListener(new View.OnClickListener()
-        {
 
-            public void onClick (View v)
-            {
+        contentView.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
                 RingerHelper.performToggle(audioManager);
                 updateUi();
-
+                Toast.makeText(getApplicationContext(), "Silent Setting Changed",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        final Button button1=(Button) findViewById(R.id.button2);
-
+        final Button button1 = (Button) findViewById(R.id.button2);
 
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v2) {
 
-                i ++;
+                i++;
 
-                if (i % 2==0)
+                if (i % 2 == 0)
 
                 {
-                    contentView.setBackgroundColor(0x00FF00);
-                    contentView2.setBackgroundColor(0x00FF00);
+                    //-----------Refernce the Following code is from android example at http://stackoverflow.com/questions/2173936/how-to-set-background-color-of-a-view
+                    button1.setBackgroundColor(0xff616161);
+                    contentView0.setBackgroundColor(0xff616161);
+                    contentView.setBackgroundColor(0xff616161);
+                    contentView3.setBackgroundColor(0xff757575);
+                    contentView2.setBackgroundColor(0xff9E9E9E);
+                   // ok.setBackgroundColor(0xFFE0E0E0);
+
+                    //----------Reference Complete
                     button1.setText("Dark Theme");
-                }
-                else
-                 if (i % 2!=0)
-                {
-                    contentView.setBackgroundColor(0xFF645C5C);
-                    contentView2.setBackgroundColor(0xFF645C5C);
+                    Toast.makeText(getApplicationContext(), "Dark Theme",
+                            Toast.LENGTH_SHORT).show();
+                } else if (i % 2 != 0) {
+                    //-----------Reference the Following code is from android example at http://stackoverflow.com/questions/2173936/how-to-set-background-color-of-a-view
+                    button1.setBackgroundColor(0xffBDBDBD);
+                    contentView0.setBackgroundColor(0xffBDBDBD);
+                    contentView.setBackgroundColor(0xffBDBDBD);
+                    contentView3.setBackgroundColor(0xFFE0E0E0);
+                    contentView2.setBackgroundColor(0xFFEEEEEE);
+                   // ok.setBackgroundColor(0xFFFAFAFA);
+                    //----------Reference Complete
                     button1.setText("Light Theme");
+                    Toast.makeText(getApplicationContext(), "Light Theme",
+                            Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -102,24 +112,21 @@ public class MainActivity extends ListActivity {
         });
 
 
-
-
-
         // Gets all the data from the database and stores it
         // in an ArrayList
 
-        ArrayList<HashMap<String, String>> contactList =  dbTools.getAllContacts();
+        ArrayList<HashMap<String, String>> contactList = dbTools.getAllContacts();
 
         // Check to make sure there are contacts to display
 
-        if(contactList.size()!=0) {
+        if (contactList.size() != 0) {
 
             // Get the ListView and assign an event handler to it
 
             ListView listView = getListView();
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                     // When an item is clicked get the TextView
                     // with a matching checkId
@@ -134,7 +141,7 @@ public class MainActivity extends ListActivity {
                     // getApplication() returns the application that owns
                     // this activity
 
-                    Intent  theIndent = new Intent(getApplication(),Edit_Contract.class);
+                    Intent theIndent = new Intent(getApplication(), Edit_Movie.class);
 
                     // Put additional data in for EditContact to use
 
@@ -146,19 +153,9 @@ public class MainActivity extends ListActivity {
                 }
             });
 
-            // A list adapter is used bridge between a ListView and
-            // the ListViews data
 
-            // The SimpleAdapter connects the data in an ArrayList
-            // to the XML file
 
-            // First we pass in a Context to provide information needed
-            // about the application
-            // The ArrayList of data is next followed by the xml resource
-            // Then we have the names of the data in String format and
-            // their specific resource ids
-
-            ListAdapter adapter = new SimpleAdapter( MainActivity.this,contactList, R.layout.contact_entry, new String[] { "contactId","Director", "MovieTitle"}, new int[] {R.id.contactId, R.id.Director, R.id.MovieTitle});
+            ListAdapter adapter = new SimpleAdapter(MainActivity.this, contactList, R.layout.movie_list, new String[]{"contactId", "MovieTitle","Director"}, new int[]{R.id.contactId, R.id.Director, R.id.MovieTitle});
 
             // setListAdapter provides the Cursor for the ListView
             // The Cursor provides access to the database data
@@ -171,33 +168,41 @@ public class MainActivity extends ListActivity {
     // NewContact is called
 
     public void showAddContact(View view) {
-        Intent theIntent = new Intent(getApplicationContext(), NewContract.class);
+        Intent theIntent = new Intent(getApplicationContext(), New_Movie.class);
         startActivity(theIntent);
     }
 
 
-private void updateUi(){
-
-    ImageView imageView = (ImageView) findViewById(R.id.phone_icon);
 
 
-    int phoneImage = RingerHelper.isPhoneSilent(audioManager)
-            ?R.drawable.ringer_on_smaller_2
-            :R.drawable.ringer_off_smaller_4;
-
-    imageView.setImageResource(phoneImage);
-}
+    private void updateUi() {
+        //-----------Reference the Following code is from the book Android App Development for Dummie
+        ImageView imageView = (ImageView) findViewById(R.id.phone_icon);
 
 
+        int phoneImage = RingerHelper.isPhoneSilent(audioManager)
+                ? R.drawable.ringer_on_smaller_6
+                : R.drawable.ringer_off_smaller_5;
 
-
-    protected void onResume(){
-
-        super.onResume();
-        updateUi();
+        imageView.setImageResource(phoneImage);
+        //----------Reference Complete
 
     }
 
+
+    protected void onResume() {
+
+        super.onResume();
+        updateUi();
+        i++;
+        Toast.makeText(getApplicationContext(), "Welcome Back",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    protected void onPause() {
+
+        super.onPause();
+    }
+
+
 }
-
-
