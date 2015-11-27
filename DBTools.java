@@ -1,3 +1,9 @@
+//Android Assignment
+//James Prendergast
+//C13446122
+//27_11_2015
+
+//this is the name of the Package of the Assignment
 package ie.dit.james.android_assignment_latest;
 
 import android.content.ContentValues;
@@ -5,19 +11,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
+//this is the Database class that deals with database transactions and its extends
+//SQliteOpenHelper allows us to read and write to our database
 public class DBTools extends SQLiteOpenHelper {
 
+    //this is our constructor for DBTools that adds the name of our database and our version number
     public DBTools(Context applicationContext){
 
         super(applicationContext, "contactbook.db", null, 3);
 
     }
 
+    //this calls for the database tables to be created
     @Override
     public void onCreate(SQLiteDatabase database) {
 

@@ -10,7 +10,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.HashMap;
 
 
@@ -46,7 +50,9 @@ public class Edit_Movie extends Activity {
 
             String contactId = theIntent.getStringExtra("contactId");
 
-            HashMap<String, String> contactList = dbTools.getContactInfo(contactId);
+
+
+        HashMap<String, String> contactList = dbTools.getContactInfo(contactId);
 
             if(contactList.size()!=0)
 
@@ -124,9 +130,15 @@ public class Edit_Movie extends Activity {
 
                   Intent switchScreen = new Intent(v4.getContext(), WebPage.class);
 
+                    String movieIdValue = MovieTitle.getText().toString();
+
                   startActivity(switchScreen);
+                    Intent theIntent = getIntent();
+                    String movie = theIntent.getStringExtra("MovieTitle");
                     Intent new_intent=new Intent(this,WebPage.class);
                     new_intent.putExtra("counter",1);
+                    new_intent.putExtra("MovieTitle", movieIdValue);
+
                     startActivity(new_intent);
 
                }
@@ -137,15 +149,44 @@ public class Edit_Movie extends Activity {
         Intent switchScreen = new Intent(v5.getContext(), WebPage.class);
 
         startActivity(switchScreen);
-        ////-----------Reference the Following code is from android example at http://stackoverflow.com/questions/9308267/passing-a-simple-variable-value-for-use-in-another-class-in-android
+
+
+        String movieIdValue = MovieTitle.getText().toString();
+
+
+        Intent theIntent = getIntent();
+        String movie = theIntent.getStringExtra("MovieTitle");
         Intent new_intent=new Intent(this,WebPage.class);
-        new_intent.putExtra("counter",2);
-        //
+        new_intent.putExtra("counter", 2);
+        new_intent.putExtra("MovieTitle", movieIdValue);
+
+
+
         startActivity(new_intent);
 
     }
 
+    public void imdb(View v6) {
 
+        Intent switchScreen = new Intent(v6.getContext(), WebPage.class);
+
+        startActivity(switchScreen);
+
+
+        String movieIdValue = MovieTitle.getText().toString();
+
+
+        Intent theIntent = getIntent();
+        String movie = theIntent.getStringExtra("MovieTitle");
+        Intent new_intent=new Intent(this,WebPage.class);
+        new_intent.putExtra("counter", 3);
+        new_intent.putExtra("MovieTitle", movieIdValue);
+
+
+
+        startActivity(new_intent);
+
+    }
 
 
 
